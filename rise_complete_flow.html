@@ -1,0 +1,2124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RISE - Complete Technical Flow & Requirements</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8F5C 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            border-radius: 20px;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            color: #FF6B35;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #FF6B35;
+        }
+        
+        .section-subtitle {
+            font-size: 1.3rem;
+            color: #333;
+            margin: 1.5rem 0 1rem 0;
+            font-weight: 600;
+        }
+        
+        /* Flow Diagram Styles */
+        .flow-diagram {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .flow-phase {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 5px solid #FF6B35;
+        }
+        
+        .flow-phase h3 {
+            color: #FF6B35;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .flow-steps {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .flow-step {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 2px solid #e9ecef;
+            display: flex;
+            gap: 1rem;
+            align-items: start;
+        }
+        
+        .step-number {
+            min-width: 35px;
+            height: 35px;
+            background: #FF6B35;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .step-content h4 {
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .step-content p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        .step-details {
+            margin-top: 0.5rem;
+            padding-left: 1rem;
+            border-left: 2px solid #e9ecef;
+        }
+        
+        .step-details li {
+            color: #666;
+            font-size: 0.9rem;
+            margin: 0.3rem 0;
+        }
+        
+        /* API Table */
+        .api-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        
+        .api-table th {
+            background: #FF6B35;
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .api-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .api-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .method-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .method-post {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .method-get {
+            background: #2196F3;
+            color: white;
+        }
+        
+        .method-put {
+            background: #FF9800;
+            color: white;
+        }
+        
+        /* Integration Cards */
+        .integration-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .integration-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 2px solid #e9ecef;
+        }
+        
+        .integration-card h4 {
+            color: #FF6B35;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+        
+        .integration-card .service {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .integration-card .details {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        /* Architecture Diagram */
+        .architecture-box {
+            background: white;
+            border: 3px solid #FF6B35;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        
+        .architecture-box h4 {
+            color: #FF6B35;
+            margin-bottom: 0.5rem;
+        }
+        
+        .architecture-arrow {
+            text-align: center;
+            font-size: 2rem;
+            color: #FF6B35;
+            margin: 1rem 0;
+        }
+        
+        .layer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .layer-box {
+            background: linear-gradient(135deg, #FF6B35, #FF8F5C);
+            color: white;
+            padding: 2rem 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .layer-box h4 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .layer-box ul {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+        }
+        
+        .layer-box li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.9rem;
+        }
+        
+        .layer-box li:last-child {
+            border-bottom: none;
+        }
+        
+        /* Data Model */
+        .data-model {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .collection-card {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .collection-header {
+            background: #FF6B35;
+            color: white;
+            padding: 1rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .collection-body {
+            padding: 1rem;
+        }
+        
+        .field {
+            padding: 0.6rem 0;
+            border-bottom: 1px solid #e9ecef;
+            font-size: 0.9rem;
+        }
+        
+        .field:last-child {
+            border-bottom: none;
+        }
+        
+        .field-name {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .field-type {
+            color: #666;
+            font-size: 0.85rem;
+        }
+        
+        /* Feature Checklist */
+        .checklist {
+            display: grid;
+            gap: 0.8rem;
+            margin: 1rem 0;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .checklist-item .icon {
+            color: #4CAF50;
+            font-size: 1.5rem;
+            min-width: 30px;
+        }
+        
+        .checklist-item h4 {
+            color: #333;
+            margin-bottom: 0.3rem;
+            font-size: 1rem;
+        }
+        
+        .checklist-item p {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        @media print {
+            .section {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .layer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>RISE Mobile App</h1>
+            <p>Complete Technical Flow & Requirements Documentation</p>
+            <p style="font-size: 0.95rem; margin-top: 1rem; opacity: 0.9;">Based on Technical PRD & MVP Scope</p>
+        </header>
+
+        <!-- System Architecture -->
+        <div class="section">
+            <h2 class="section-title">📐 System Architecture Overview</h2>
+            
+            <div class="layer-grid">
+                <div class="layer-box">
+                    <h4>📱 Client Layer</h4>
+                    <ul>
+                        <li>Flutter Mobile App</li>
+                        <li>iOS & Android</li>
+                        <li>Native GPS Services</li>
+                        <li>Local State Management</li>
+                        <li>Offline Capabilities</li>
+                    </ul>
+                </div>
+                
+                <div class="layer-box">
+                    <h4>⚙️ Backend Layer</h4>
+                    <ul>
+                        <li>Node.js + Express</li>
+                        <li>RESTful APIs</li>
+                        <li>JWT Authentication</li>
+                        <li>Business Logic</li>
+                        <li>Data Processing</li>
+                    </ul>
+                </div>
+                
+                <div class="layer-box">
+                    <h4>💾 Data Layer</h4>
+                    <ul>
+                        <li>MongoDB (Primary DB)</li>
+                        <li>Mongoose ODM</li>
+                        <li>Firebase (Notifications)</li>
+                        <li>File Storage</li>
+                        <li>Session Management</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3 class="section-subtitle">External Integrations</h3>
+            <div class="integration-grid">
+                <div class="integration-card">
+                    <h4>🤖 Retell AI</h4>
+                    <div class="service">Voice Agent Integration</div>
+                    <div class="details">
+                        Handles AI coaching calls, collects user goals, fitness level, and schedule. Generates personalized training plan via web link within 5 minutes.
+                    </div>
+                </div>
+                
+                <div class="integration-card">
+                    <h4>📅 Google Calendar API</h4>
+                    <div class="service">OAuth 2.0 Integration</div>
+                    <div class="details">
+                        Two-way sync of training plan with user's Google Calendar. Requires calendar.events scope for create, read, update, delete operations.
+                    </div>
+                </div>
+                
+                <div class="integration-card">
+                    <h4>📍 Native GPS</h4>
+                    <div class="service">Device Location Services</div>
+                    <div class="details">
+                        iOS Core Location & Android Location Services for high-accuracy real-time tracking of latitude, longitude, altitude, and speed.
+                    </div>
+                </div>
+                
+                <div class="integration-card">
+                    <h4>🗺️ OpenStreetMap</h4>
+                    <div class="service">Mapping Service</div>
+                    <div class="details">
+                        Free mapping tiles for displaying run routes. Polyline rendering on map tiles for activity summaries and shareable templates.
+                    </div>
+                </div>
+                
+                <div class="integration-card">
+                    <h4>🔔 Firebase FCM</h4>
+                    <div class="service">Push Notifications</div>
+                    <div class="details">
+                        Firebase Cloud Messaging for iOS and Android. Sends notifications for plan updates, social interactions, and motivational nudges.
+                    </div>
+                </div>
+                
+                <div class="integration-card">
+                    <h4>📤 Native Share</h4>
+                    <div class="service">OS Share Sheet</div>
+                    <div class="details">
+                        iOS UIActivityViewController & Android ACTION_SEND Intent for sharing run summaries to Instagram Stories and other social platforms.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- API Endpoints -->
+        <div class="section">
+            <h2 class="section-title">🔌 Backend API Endpoints</h2>
+            <p style="color: #666; margin-bottom: 1.5rem;">All APIs use RESTful architecture with JSON data exchange and JWT authentication</p>
+            
+            <h3 class="section-subtitle">Authentication APIs</h3>
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>Endpoint</th>
+                        <th>Method</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>/api/auth/register</td>
+                        <td><span class="method-badge method-post">POST</span></td>
+                        <td>User account creation with email/password</td>
+                    </tr>
+                    <tr>
+                        <td>/api/auth/login</td>
+                        <td><span class="method-badge method-post">POST</span></td>
+                        <td>User authentication, returns JWT token</td>
+                    </tr>
+                    <tr>
+                        <td>/api/auth/password-reset</td>
+                        <td><span class="method-badge method-post">POST</span></td>
+                        <td>Initiates password recovery flow</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="section-subtitle">User Profile APIs</h3>
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>Endpoint</th>
+                        <th>Method</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>/api/users/me</td>
+                        <td><span class="method-badge method-get">GET</span></td>
+                        <td>Fetch current user's profile data</td>
+                    </tr>
+                    <tr>
+                        <td>/api/users/{id}</td>
+                        <td><span class="method-badge method-get">GET</span></td>
+                        <td>Fetch specific user's public profile</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="section-subtitle">Training Plan APIs</h3>
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>Endpoint</th>
+                        <th>Method</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>/api/training-plan</td>
+                        <td><span class="method-badge method-get">GET</span></td>
+                        <td>Retrieve user's current training plan</td>
+                    </tr>
+                    <tr>
+                        <td>/api/training-plan</td>
+                        <td><span class="method-badge method-put">PUT</span></td>
+                        <td>Update training plan (AI adaptation)</td>
+                    </tr>
+                    <tr>
+                        <td>/api/training-plan/import</td>
+                        <td><span class="method-badge method-post">POST</span></td>
+                        <td>Import plan from web link or PDF</td>
+                    </tr>
+                    <tr>
+                        <td>/api/training-plan/export</td>
+                        <td><span class="method-badge method-get">GET</span></td>
+                        <td>Export current plan as PDF (4 weeks)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="section-subtitle">Activity & Run Tracking APIs</h3>
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>Endpoint</th>
+                        <th>Method</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>/api/activities</td>
+                        <td><span class="method-badge method-post">POST</span></td>
+                        <td>Upload new run activity with GPS data</td>
+                    </tr>
+                    <tr>
+                        <td>/api/activities/{id}</td>
+                        <td><span class="method-badge method-get">GET</span></td>
+                        <td>Get details of specific activity</td>
+                    </tr>
+                    <tr>
+                        <td>/api/feedback</td>
+                        <td><span class="method-badge method-post">POST</span></td>
+                        <td>Submit post-run feedback (RPE, energy, pain)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="section-subtitle">Social & Leaderboard APIs</h3>
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>Endpoint</th>
+                        <th>Method</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>/api/friends/requests</td>
+                        <td><span class="method-badge method-post">POST</span></td>
+                        <td>Send follow request to another user</td>
+                    </tr>
+                    <tr>
+                        <td>/api/friends/requests/{id}</td>
+                        <td><span class="method-badge method-put">PUT</span></td>
+                        <td>Accept or decline follow request</td>
+                    </tr>
+                    <tr>
+                        <td>/api/friends</td>
+                        <td><span class="method-badge method-get">GET</span></td>
+                        <td>Get user's friends list</td>
+                    </tr>
+                    <tr>
+                        <td>/api/leaderboards</td>
+                        <td><span class="method-badge method-get">GET</span></td>
+                        <td>Get public leaderboards (City, State) with filters</td>
+                    </tr>
+                    <tr>
+                        <td>/api/leaderboards/friends</td>
+                        <td><span class="method-badge method-get">GET</span></td>
+                        <td>Get private friend leaderboard</td>
+                    </tr>
+                    <tr>
+                        <td>/api/social/feed</td>
+                        <td><span class="method-badge method-get">GET</span></td>
+                        <td>Get user's personalized social feed</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- MongoDB Data Models -->
+        <div class="section">
+            <h2 class="section-title">💾 MongoDB Database Schema</h2>
+            
+            <div class="data-model">
+                <div class="collection-card">
+                    <div class="collection-header">👤 Users Collection</div>
+                    <div class="collection-body">
+                        <div class="field">
+                            <div class="field-name">_id</div>
+                            <div class="field-type">ObjectId (Primary Key)</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">email</div>
+                            <div class="field-type">String (unique, required)</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">password</div>
+                            <div class="field-type">String (hashed)</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">name</div>
+                            <div class="field-type">String</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">city</div>
+                            <div class="field-type">String</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">state</div>
+                            <div class="field-type">String</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">fitnessLevel</div>
+                            <div class="field-type">String (beginner/intermediate/advanced)</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">goals</div>
+                            <div class="field-type">Array [String]</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">createdAt</div>
+                            <div class="field-type">Date</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">updatedAt</div>
+                            <div class="field-type">Date</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collection-card">
+                    <div class="collection-header">📋 Training Plans Collection</div>
+                    <div class="collection-body">
+                        <div class="field">
+                            <div class="field-name">_id</div>
+                            <div class="field-type">ObjectId</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">userId</div>
+                            <div class="field-type">ObjectId (ref: Users)</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">weeklyPlan</div>
+                            <div class="field-type">Array [Object]</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">startDate</div>
+                            <div class="field-type">Date</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">endDate</div>
+                            <div class="field-type">Date</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">source</div>
+                            <div class="field-type">String (ai/pdf/coach)</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">calendarSynced</div>
+                            <div class="field-type">Boolean</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">createdAt</div>
+                            <div class="field-type">Date</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collection-card">
+                    <div class="collection-header">🏃 Activities Collection</div>
+                    <div class="collection-body">
+                        <div class="field">
+                            <div class="field-name">_id</div>
+                            <div class="field-type">ObjectId</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">userId</div>
+                            <div class="field-type">ObjectId (ref: Users)</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">type</div>
+                            <div class="field-type">String (run/workout)</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">distance</div>
+                            <div class="field-type">Number (kilometers)</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">duration</div>
+                            <div class="field-type">Number (seconds)</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">pace</div>
+                            <div class="field-type">Number (min/km)</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">route</div>
+                            <div class="field-type">Array [GeoJSON Points]</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">elevation</div>
+                            <div class="field-type">Number (meters)</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">completed</div>
+                            <div class="field-type">Boolean</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">startedAt</div>
+                            <div class="field-type">Date</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">completedAt</div>
+                            <div class="field-type">Date</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collection-card">
+                    <div class="collection-header">💬 Feedback Collection</div>
+                    <div class="collection-body">
+                        <div class="field">
+                            <div class="field-name">_id</div>
+                            <div class="field-type">ObjectId</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">activityId</div>
+                            <div class="field-type">ObjectId (ref: Activities)</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">userId</div>
+                            <div class="field-type">ObjectId (ref: Users)</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">rpe</div>
+                            <div class="field-type">Number (1-10)</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">energyLevel</div>
+                            <div class="field-type">Number (1-10)</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">painLevel</div>
+                            <div class="field-type">Number (0-10)</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">notes</div>
+                            <div class="field-type">String (optional)</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">createdAt</div>
+                            <div class="field-type">Date</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collection-card">
+                    <div class="collection-header">🤝 Friendships Collection</div>
+                    <div class="collection-body">
+                        <div class="field">
+                            <div class="field-name">_id</div>
+                            <div class="field-type">ObjectId</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">requesterId</div>
+                            <div class="field-type">ObjectId (ref: Users)</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">recipientId</div>
+                            <div class="field-type">ObjectId (ref: Users)</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">status</div>
+                            <div class="field-type">String (pending/accepted/declined)</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">createdAt</div>
+                            <div class="field-type">Date</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">updatedAt</div>
+                            <div class="field-type">Date</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collection-card">
+                    <div class="collection-header">🏆 Leaderboards Collection</div>
+                    <div class="collection-body">
+                        <div class="field">
+                            <div class="field-name">_id</div>
+                            <div class="field-type">ObjectId</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">userId</div>
+                            <div class="field-type">ObjectId (ref: Users)</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">week</div>
+                            <div class="field-type">String (YYYY-WW)</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">totalDistance</div>
+                            <div class="field-type">Number (km)</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">totalDuration</div>
+                            <div class="field-type">Number (minutes)</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">activitiesCount</div>
+                            <div class="field-type">Number</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">city</div>
+                            <div class="field-type">String</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">state</div>
+                            <div class="field-type">String</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">rank</div>
+                            <div class="field-type">Number</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Complete User Journey Flow -->
+        <div class="section">
+            <h2 class="section-title">🔄 Complete User Journey Flow</h2>
+            
+            <div class="flow-diagram">
+                <!-- Phase 1: Onboarding -->
+                <div class="flow-phase">
+                    <h3>Phase 1: Onboarding & Initial Setup</h3>
+                    <div class="flow-steps">
+                        <div class="flow-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>App Download & First Launch</h4>
+                                <p>User downloads RISE from App Store/Play Store and opens for first time</p>
+                                <div class="step-details">
+                                    <ul>
+                                        <li><strong>Push Notification:</strong> "Your plan for next week is ready!"</li>
+                                        <li><strong>User Action:</strong> Opens app to review changes</li>
+                                        <li><strong>Display:</strong> Show updated week with highlights of what changed</li>
+                                        <li><strong>Note:</strong> No manual editing - AI adaptation is final</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 4: Social & Community -->
+                <div class="flow-phase">
+                    <h3>Phase 4: Social Features & Leaderboards (MVP Scope)</h3>
+                    <div class="flow-steps">
+                        <div class="flow-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>City Leaderboard</h4>
+                                <p>View rankings of runners in your city</p>
+                                <div class="step-details">
+                                    <ul>
+                                        <li><strong>API Call:</strong> GET /api/leaderboards?city={user_city}</li>
+                                        <li><strong>Display:</strong>
+                                            <ul style="list-style: circle; margin-left: 1.5rem;">
+                                                <li>Top 50 runners in city</li>
+                                                <li>Weekly total distance</li>
+                                                <li>Number of workouts completed</li>
+                                                <li>Current user's rank highlighted</li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>Filters:</strong> This Week / Last Week / All Time</li>
+                                        <li><strong>Updates:</strong> Real-time updates after each run</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flow-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Friends Leaderboard (Optional for MVP)</h4>
+                                <p>Private leaderboard with friends only</p>
+                                <div class="step-details">
+                                    <ul>
+                                        <li><strong>Friend Requests:</strong> POST /api/friends/requests</li>
+                                        <li><strong>Accept/Decline:</strong> PUT /api/friends/requests/{id}</li>
+                                        <li><strong>View Friends Leaderboard:</strong> GET /api/leaderboards/friends</li>
+                                        <li><strong>Display:</strong> Same format as city, but only friends</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flow-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Social Feed (Optional for MVP)</h4>
+                                <p>View recent activities from friends</p>
+                                <div class="step-details">
+                                    <ul>
+                                        <li><strong>API Call:</strong> GET /api/social/feed</li>
+                                        <li><strong>Display:</strong>
+                                            <ul style="list-style: circle; margin-left: 1.5rem;">
+                                                <li>Friends' recent runs</li>
+                                                <li>Distance and pace achieved</li>
+                                                <li>Route maps (if shared)</li>
+                                                <li>Ability to like/comment</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 5: Analytics -->
+                <div class="flow-phase">
+                    <h3>Phase 5: Analytics & Progress Tracking</h3>
+                    <div class="flow-steps">
+                        <div class="flow-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Analytics Dashboard</h4>
+                                <p>Comprehensive view of training progress</p>
+                                <div class="step-details">
+                                    <ul>
+                                        <li><strong>Key Metrics Displayed:</strong>
+                                            <ul style="list-style: circle; margin-left: 1.5rem;">
+                                                <li>Total Workouts Completed</li>
+                                                <li>Total Minutes Trained</li>
+                                                <li>Average RPE</li>
+                                                <li>Total Distance (km)</li>
+                                                <li>Consistency Rate (%)</li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>Interactive Graphs:</strong>
+                                            <ul style="list-style: circle; margin-left: 1.5rem;">
+                                                <li>Weekly Distance Progression (Line Chart)</li>
+                                                <li>RPE Trend Over Time (Line Chart)</li>
+                                                <li>Workout Type Distribution (Pie Chart)</li>
+                                                <li>Pace Improvement (Line Chart)</li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>Timeframes:</strong> Last 7 / 30 / 90 days</li>
+                                        <li><strong>Technology:</strong> Chart.js or Recharts for visualizations</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flow-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Training Load Management</h4>
+                                <p>Monitor training stress and recovery</p>
+                                <div class="step-details">
+                                    <ul>
+                                        <li><strong>Display:</strong>
+                                            <ul style="list-style: circle; margin-left: 1.5rem;">
+                                                <li>Weekly training load score</li>
+                                                <li>Trend: Increasing / Stable / Decreasing</li>
+                                                <li>Recommendations for recovery</li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>Calculation:</strong> Based on distance, duration, and RPE</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Workflows -->
+        <div class="section">
+            <h2 class="section-title">⚙️ Detailed Technical Workflows</h2>
+            
+            <h3 class="section-subtitle">PDF/Web Link Import Workflow</h3>
+            <div class="flow-steps" style="display: grid; gap: 1rem;">
+                <div class="flow-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>User Input</h4>
+                        <p>User pastes web link in app interface</p>
+                        <div class="step-details">
+                            <ul>
+                                <li>Format: https://myrise.co.in/plan/{unique-id}</li>
+                                <li>Validation: Check URL format</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>API Request</h4>
+                        <p>POST /api/training-plan/import with link parameter</p>
+                        <div class="step-details">
+                            <ul>
+                                <li>Request Body: { "planUrl": "https://..." }</li>
+                                <li>Headers: JWT token for authentication</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Backend Processing</h4>
+                        <p>Fetch and parse training plan data</p>
+                        <div class="step-details">
+                            <ul>
+                                <li>HTTP GET to fetch plan data from URL</li>
+                                <li>Parse HTML/JSON response</li>
+                                <li>Extract workout details:
+                                    <ul style="list-style: circle; margin-left: 1.5rem;">
+                                        <li>Day of week</li>
+                                        <li>Workout type (Easy, Tempo, Intervals, Long)</li>
+                                        <li>Distance (km)</li>
+                                        <li>Duration estimate</li>
+                                        <li>Pace targets</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Data Structuring</h4>
+                        <p>Convert to internal JSON format</p>
+                        <div class="step-details">
+                            <ul>
+                                <li>Create weekly structure:
+                                    <pre style="background: #f8f9fa; padding: 1rem; border-radius: 8px; overflow-x: auto;">
+{
+  "weeks": [
+    {
+      "weekNumber": 1,
+      "workouts": [
+        {
+          "day": "Monday",
+          "type": "Easy Run",
+          "distance": 5,
+          "paceRange": "6:00-6:30 min/km",
+          "duration": 30
+        }
+      ]
+    }
+  ]
+}</pre>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>Database Save</h4>
+                        <p>Store in MongoDB training_plans collection</p>
+                        <div class="step-details">
+                            <ul>
+                                <li>Link to user ID</li>
+                                <li>Set start date (today or user-specified)</li>
+                                <li>Mark source as "ai" or "web_link"</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <h4>Client Response</h4>
+                        <p>Return structured plan to mobile app</p>
+                        <div class="step-details">
+                            <ul>
+                                <li>App displays plan in UI</li>
+                                <li>User can navigate week by week</li>
+                                <li>Prompt for Google Calendar sync</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="section-subtitle">GPS Tracking Workflow</h3>
+            <div class="flow-steps" style="display: grid; gap: 1rem;">
+                <div class="flow-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Permission Request</h4>
+                        <p>Check and request location permission</p>
+                        <div class="step-details">
+                            <ul>
+                                <li>Check current permission status</li>
+                                <li>If not granted, show explanation modal</li>
+                                <li>Request "While Using App" permission</li>
+                                <li>Handle denial gracefully with explanation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>GPS Initialization</h4>
+                        <p>Start high-accuracy location tracking</p>
+                        <div class="step-details">
+                            <ul>
+                                <li>Use Flutter Geolocator package</li>
+                                <li>Settings:
+                                    <ul style="list-style: circle; margin-left: 1.5rem;">
+                                        <li>Accuracy: Best (highest available)</li>
+                                        <li>Distance Filter: 10 meters</li>
+                                        <li>Interval: Every 1-2 seconds</li>
+                                    </ul>
+                                </li>
+                                <li>Start location stream</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Real-Time Data Collection</h4>
+                        <p>Continuously collect GPS points</p>
+                        <div class="step-details">
+                            <ul>
+                                <li>Each point contains:
+                                    <ul style="list-style: circle; margin-left: 1.5rem;">
+                                        <li>Latitude (decimal degrees)</li>
+                                        <li>Longitude (decimal degrees)</li>
+                                        <li>Altitude (meters)</li>
+                                        <li>Speed (m/s)</li>
+                                        <li>Timestamp (ISO 8601)</li>
+                                        <li>Accuracy (meters)</li>
+                                    </ul>
+                                </li>
+                                <li>Store in local array/list</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Real-Time Calculations</h4>
+                        <p>Calculate metrics as user runs</p>
+                        <div class="step-details">
+                            <ul>
+                                <li><strong>Distance:</strong> Haversine formula between consecutive points</li>
+                                <li><strong>Pace:</strong> Current speed converted to min/km</li>
+                                <li><strong>Duration:</strong> Elapsed time since start</li>
+                                <li><strong>Elevation:</strong> Cumulative altitude gain</li>
+                                <li>Update UI every second</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>Map Visualization</h4>
+                        <p>Draw route polyline on map</p>
+                        <div class="step-details">
+                            <ul>
+                                <li>Use OpenStreetMap tiles (free)</li>
+                                <li>Draw polyline connecting all GPS points</li>
+                                <li>User's current location marker</li>
+                                <li>Auto-zoom to fit entire route</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <h4>Pause/Resume Functionality</h4>
+                        <p>Allow pausing during run</p>
+                        <div class="step-details">
+                            <ul>
+                                <li>Pause: Stop GPS stream, freeze timer</li>
+                                <li>Resume: Restart GPS stream, continue timer</li>
+                                <li>Track total pause duration separately</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="step-number">7</div>
+                    <div class="step-content">
+                        <h4>Data Cleanup</h4>
+                        <p>Process raw GPS data before saving</p>
+                        <div class="step-details">
+                            <ul>
+                                <li>Remove outlier points (GPS drift)</li>
+                                <li>Filter points with low accuracy (>50m)</li>
+                                <li>Smooth polyline for cleaner route</li>
+                                <li>Recalculate final distance with cleaned data</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="step-number">8</div>
+                    <div class="step-content">
+                        <h4>Save to Backend</h4>
+                        <p>POST /api/activities with all run data</p>
+                        <div class="step-details">
+                            <ul>
+                                <li>Payload includes:
+                                    <ul style="list-style: circle; margin-left: 1.5rem;">
+                                        <li>User ID</li>
+                                        <li>All GPS points (GeoJSON format)</li>
+                                        <li>Total distance, duration, pace</li>
+                                        <li>Elevation gain</li>
+                                        <li>Start and end timestamps</li>
+                                    </ul>
+                                </li>
+                                <li>Backend stores in activities collection</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="section-subtitle">Google Calendar Sync Workflow</h3>
+            <div class="flow-steps" style="display: grid; gap: 1rem;">
+                <div class="flow-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>OAuth 2.0 Authentication</h4>
+                        <p>User grants calendar access</p>
+                        <div class="step-details">
+                            <ul>
+                                <li>Initiate Google OAuth flow</li>
+                                <li>Request scope: calendar.events</li>
+                                <li>User logs in with Google account</li>
+                                <li>Approve calendar access</li>
+                                <li>Receive access token and refresh token</li>
+                                <li>Store tokens securely in MongoDB</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Create Calendar Events</h4>
+                        <p>Sync training plan to Google Calendar</p>
+                        <div class="step-details">
+                            <ul>
+                                <li>For each workout in plan:
+                                    <ul style="list-style: circle; margin-left: 1.5rem;">
+                                        <li>Create calendar event</li>
+                                        <li>Title: "RISE: {workout type}"</li>
+                                        <li>Description: Distance, pace, duration</li>
+                                        <li>Time: Based on user preference</li>
+                                        <li>Reminder: 30 minutes before</li>
+                                        <li>Color: RISE brand color</li>
+                                    </ul>
+                                </li>
+                                <li>Use Google Calendar API v3</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Two-Way Sync</h4>
+                        <p>Keep calendar and app in sync</p>
+                        <div class="step-details">
+                            <ul>
+                                <li>When plan updates in app → Update calendar events</li>
+                                <li>When user completes run → Mark event as completed</li>
+                                <li>Sync status stored in MongoDB</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MVP Feature Checklist -->
+        <div class="section">
+            <h2 class="section-title">✅ MVP Feature Checklist</h2>
+            <p style="color: #666; margin-bottom: 1.5rem;">All features required for investor demo</p>
+            
+            <div class="checklist">
+                <div class="checklist-item">
+                    <div class="icon">✓</div>
+                    <div>
+                        <h4>User Authentication</h4>
+                        <p>Email/password registration and login with JWT tokens. Password reset flow included.</p>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <div class="icon">✓</div>
+                    <div>
+                        <h4>Retell AI Integration</h4>
+                        <p>Seamless integration with AI calling system. User receives web link with personalized training plan within 5 minutes.</p>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <div class="icon">✓</div>
+                    <div>
+                        <h4>Training Plan Import</h4>
+                        <p>Paste web link to automatically import and structure training plan. Plan displayed in clean week-by-week view.</p>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <div class="icon">✓</div>
+                    <div>
+                        <h4>Native GPS Tracking</h4>
+                        <p>High-accuracy real-time GPS tracking using Flutter Geolocator. Track distance, pace, route, and elevation without paid APIs.</p>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <div class="icon">✓</div>
+                    <div>
+                        <h4>Route Visualization</h4>
+                        <p>Display run routes on map using OpenStreetMap tiles. Polyline rendering with real-time updates during runs.</p>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <div class="icon">✓</div>
+                    <div>
+                        <h4>Google Calendar Sync</h4>
+                        <p>OAuth 2.0 integration for two-way calendar sync. Training plan automatically synced to user's Google Calendar with reminders.</p>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <div class="icon">✓</div>
+                    <div>
+                        <h4>Post-Run Feedback</h4>
+                        <p>Collect RPE, energy level, and pain indicators after each run. Data used for AI plan adaptation.</p>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <div class="icon">✓</div>
+                    <div>
+                        <h4>Analytics Dashboard</h4>
+                        <p>Interactive charts showing total workouts, minutes trained, average RPE, distance progression, and consistency rate.</p>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <div class="icon">✓</div>
+                    <div>
+                        <h4>City Leaderboards</h4>
+                        <p>Real-time rankings of runners in user's city. Weekly distance totals and workout counts displayed.</p>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <div class="icon">✓</div>
+                    <div>
+                        <h4>Push Notifications</h4>
+                        <p>Firebase FCM for workout reminders, plan updates, and motivational messages.</p>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <div class="icon">✓</div>
+                    <div>
+                        <h4>Weekly AI Adaptation</h4>
+                        <p>Automated Sunday analysis of training week. AI adjusts next week's plan based on performance and feedback.</p>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <div class="icon">✓</div>
+                    <div>
+                        <h4>Training Load Management</h4>
+                        <p>Display weekly training load scores and trends. Recommendations for recovery based on RPE and volume.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Future Features -->
+        <div class="section">
+            <h2 class="section-title">🚀 Future Enhancements (Post-MVP)</h2>
+            <p style="color: #666; margin-bottom: 1.5rem;">Features to add after successful investor demo</p>
+            
+            <div class="integration-grid">
+                <div class="integration-card">
+                    <h4>Training Buddy Feature</h4>
+                    <div class="details">
+                        Find runners within 5km radius with similar training plans. Send friend requests, chat in-app, and have friendly competitions.
+                    </div>
+                </div>
+
+                <div class="integration-card">
+                    <h4>Training Groups</h4>
+                    <div class="details">
+                        Create or join groups within 10km radius. Group chat, shared leaderboards, and group challenges.
+                    </div>
+                </div>
+
+                <div class="integration-card">
+                    <h4>Workout Tracker</h4>
+                    <div class="details">
+                        Gym workout tracking with sets, reps, and weight logging. Exercise library and progress tracking.
+                    </div>
+                </div>
+
+                <div class="integration-card">
+                    <h4>Instagram Sharing</h4>
+                    <div class="details">
+                        Customizable shareable templates with run stats. Direct sharing to Instagram Stories via native share sheet.
+                    </div>
+                </div>
+
+                <div class="integration-card">
+                    <h4>Coach Assignment</h4>
+                    <div class="details">
+                        Human coach integration for personalized guidance. Coach dashboard for managing multiple clients.
+                    </div>
+                </div>
+
+                <div class="integration-card">
+                    <h4>PDF Export</h4>
+                    <div class="details">
+                        Export training plan as PDF for offline viewing or printing. Professional formatting for upcoming 4 weeks.
+                    </div>
+                </div>
+
+                <div class="integration-card">
+                    <h4>Heart Rate Integration</h4>
+                    <div class="details">
+                        Connect with wearables (Apple Watch, Garmin, Fitbit) for heart rate tracking during runs.
+                    </div>
+                </div>
+
+                <div class="integration-card">
+                    <h4>Advanced Analytics</h4>
+                    <div class="details">
+                        VO2 max estimation, training zones, recovery recommendations, and injury risk predictions.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Security & Performance -->
+        <div class="section">
+            <h2 class="section-title">🔒 Security & Performance Considerations</h2>
+            
+            <h3 class="section-subtitle">Security Measures</h3>
+            <div class="checklist">
+                <div class="checklist-item">
+                    <div class="icon">🔐</div>
+                    <div>
+                        <h4>Authentication & Authorization</h4>
+                        <p>JWT tokens with 7-day expiry. Refresh token mechanism. Password hashing with bcrypt (10+ salt rounds).</p>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <div class="icon">🛡️</div>
+                    <div>
+                        <h4>API Security</h4>
+                        <p>All APIs require JWT authentication. Rate limiting to prevent abuse. Input validation and sanitization.</p>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <div class="icon">🔒</div>
+                    <div>
+                        <h4>Data Protection</h4>
+                        <p>HTTPS only for all API calls. Encrypted storage for sensitive data. Secure storage of Google OAuth tokens.</p>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <div class="icon">🕵️</div>
+                    <div>
+                        <h4>Privacy</h4>
+                        <p>Location data only collected during runs. User can control data sharing. GDPR-compliant data handling.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="section-subtitle">Performance Optimization</h3>
+            <div class="checklist">
+                <div class="checklist-item">
+                    <div class="icon">⚡</div>
+                    <div>
+                        <h4>GPS Tracking</h4>
+                        <p>Efficient location filtering (10m distance). Background tracking optimization. Battery-conscious settings.</p>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <div class="icon">💾</div>
+                    <div>
+                        <h4>Data Management</h4>
+                        <p>Local caching of training plans. Offline mode for viewing past runs. Sync when network available.</p>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <div class="icon">📊</div>
+                    <div>
+                        <h4>Database Optimization</h4>
+                        <p>MongoDB indexes on frequently queried fields. Efficient aggregation pipelines for leaderboards and analytics.</p>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <div class="icon">🚀</div>
+                    <div>
+                        <h4>API Performance</h4>
+                        <p>Response pagination for large datasets. Efficient query optimization. Compression for GPS data transfer.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testing Strategy -->
+        <div class="section">
+            <h2 class="section-title">🧪 Testing Strategy</h2>
+            
+            <div class="integration-grid">
+                <div class="integration-card">
+                    <h4>Unit Testing</h4>
+                    <div class="details">
+                        <strong>Backend:</strong> Jest for API endpoints, business logic, and data models<br>
+                        <strong>Mobile:</strong> Flutter test framework for widgets and utilities<br>
+                        <strong>Target:</strong> 70%+ code coverage
+                    </div>
+                </div>
+
+                <div class="integration-card">
+                    <h4>Integration Testing</h4>
+                    <div class="details">
+                        <strong>API Testing:</strong> Postman collection for all endpoints<br>
+                        <strong>End-to-End:</strong> Complete user flows from registration to run completion<br>
+                        <strong>OAuth Flow:</strong> Google Calendar integration testing
+                    </div>
+                </div>
+
+                <div class="integration-card">
+                    <h4>Mobile Testing</h4>
+                    <div class="details">
+                        <strong>iOS:</strong> TestFlight beta testing with 10-20 testers<br>
+                        <strong>Android:</strong> Firebase App Distribution<br>
+                        <strong>Devices:</strong> Test on variety of screen sizes and OS versions
+                    </div>
+                </div>
+
+                <div class="integration-card">
+                    <h4>GPS Accuracy Testing</h4>
+                    <div class="details">
+                        <strong>Real-world:</strong> Test runs in different environments<br>
+                        <strong>Edge Cases:</strong> Tunnels, tall buildings, poor signal areas<br>
+                        <strong>Validation:</strong> Compare with known distances
+                    </div>
+                </div>
+
+                <div class="integration-card">
+                    <h4>Performance Testing</h4>
+                    <div class="details">
+                        <strong>Load Testing:</strong> Simulate multiple concurrent users<br>
+                        <strong>GPS Performance:</strong> Battery usage and accuracy over long runs<br>
+                        <strong>API Response Times:</strong> Monitor latency under load
+                    </div>
+                </div>
+
+                <div class="integration-card">
+                    <h4>User Acceptance Testing</h4>
+                    <div class="details">
+                        <strong>Demo Data:</strong> Populate with realistic sample data<br>
+                        <strong>Investor Demo:</strong> Practice run-through of all features<br>
+                        <strong>Feedback:</strong> Collect and address tester feedback
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deployment Plan -->
+        <div class="section">
+            <h2 class="section-title">🚀 Deployment Plan</h2>
+            
+            <h3 class="section-subtitle">Backend Deployment (Netlify)</h3>
+            <div class="checklist">
+                <div class="checklist-item">
+                    <div class="icon">☁️</div>
+                    <div>
+                        <h4>Netlify Functions</h4>
+                        <p>Deploy Node.js Express API as serverless functions. Automatic CI/CD from Git repository.</p>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <div class="icon">💾</div>
+                    <div>
+                        <h4>MongoDB Atlas</h4>
+                        <p>Cloud-hosted MongoDB (free tier for MVP). Automatic backups and replication.</p>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <div class="icon">🔐</div>
+                    <div>
+                        <h4>Environment Variables</h4>
+                        <p>Secure storage of API keys, database connection strings, and JWT secrets in Netlify environment.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="section-subtitle">Mobile App Distribution</h3>
+            <div class="checklist">
+                <div class="checklist-item">
+                    <div class="icon">🍎</div>
+                    <div>
+                        <h4>iOS - TestFlight</h4>
+                        <p>Internal testing for investor demo. Invite-only distribution via email. No App Store submission required for MVP.</p>
+                    </div>
+                </div>
+
+                <div class="checklist-item">
+                    <div class="icon">🤖</div>
+                    <div>
+                        <h4>Android - Firebase App Distribution</h4>
+                        <p>Beta distribution to testers and investors. Download via web link. No Play Store submission required for MVP.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Metrics -->
+        <div class="section">
+            <h2 class="section-title">📊 Success Metrics for MVP</h2>
+            <p style="color: #666; margin-bottom: 1.5rem;">Key metrics to track for investor demo success</p>
+            
+            <div class="data-model" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+                <div class="collection-card">
+                    <div class="collection-header">Technical Performance</div>
+                    <div class="collection-body">
+                        <div class="field">
+                            <div class="field-name">App Stability</div>
+                            <div class="field-type">99%+ crash-free rate</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">GPS Accuracy</div>
+                            <div class="field-type">±10m precision</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">API Response Time</div>
+                            <div class="field-type"><500ms average</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collection-card">
+                    <div class="collection-header">User Experience</div>
+                    <div class="collection-body">
+                        <div class="field">
+                            <div class="field-name">Onboarding Time</div>
+                            <div class="field-type"><5 minutes to first plan</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">Feature Completion</div>
+                            <div class="field-type">100% of MVP features working</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">Demo Success</div>
+                            <div class="field-type">Smooth investor presentations</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collection-card">
+                    <div class="collection-header">Data Quality</div>
+                    <div class="collection-body">
+                        <div class="field">
+                            <div class="field-name">Plan Accuracy</div>
+                            <div class="field-type">AI plans properly structured</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">Route Visualization</div>
+                            <div class="field-type">Accurate polyline rendering</div>
+                        </div>
+                        <div class="field">
+                            <div class="field-name">Leaderboards</div>
+                            <div class="field-type">Real-time accurate rankings</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer style="background: linear-gradient(135deg, #FF6B35 0%, #FF8F5C 100%); color: white; padding: 2rem; text-align: center; margin-top: 3rem;">
+        <h3 style="margin-bottom: 1rem;">RISE MVP - Ready for Investors</h3>
+        <p style="opacity: 0.9;">Complete technical documentation for 6-8 week development timeline</p>
+        <p style="margin-top: 1rem; opacity: 0.8; font-size: 0.9rem;">Developed by Valorants Tech | January 2026</p>
+    </footer>
+</body>
+</html>
+                                    <ul>
+                                        <li><strong>Action:</strong> Display welcome screen with brand messaging</li>
+                                        <li><strong>UI:</strong> Show "Sign Up" and "Log In" options</li>
+                                        <li><strong>Permissions:</strong> No permissions requested yet</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flow-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Account Creation</h4>
+                                <p>User enters email and password to create account</p>
+                                <div class="step-details">
+                                    <ul>
+                                        <li><strong>API Call:</strong> POST /api/auth/register</li>
+                                        <li><strong>Backend:</strong> Hash password, create user in MongoDB</li>
+                                        <li><strong>Response:</strong> Return JWT token for authentication</li>
+                                        <li><strong>Storage:</strong> Store JWT in secure local storage</li>
+                                        <li><strong>Navigation:</strong> Move to onboarding questionnaire</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flow-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Onboarding Questionnaire</h4>
+                                <p>Collect basic information about user's fitness and goals</p>
+                                <div class="step-details">
+                                    <ul>
+                                        <li>Name, City, State (for leaderboards)</li>
+                                        <li>Fitness Level (Beginner/Intermediate/Advanced)</li>
+                                        <li>Running Goals (First 5K, 10K, Half Marathon, etc.)</li>
+                                        <li>Weekly Availability (Days and times)</li>
+                                        <li><strong>Storage:</strong> Save to user profile locally</li>
+                                        <li><strong>API:</strong> Sync with backend later</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flow-step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>AI Coach Call Initiation</h4>
+                                <p>User taps button to call Retell AI agent</p>
+                                <div class="step-details">
+                                    <ul>
+                                        <li><strong>Integration:</strong> Retell AI (already implemented)</li>
+                                        <li><strong>Call Duration:</strong> 5-7 minutes</li>
+                                        <li><strong>AI Collects:</strong> Goals, fitness level, schedule, injuries</li>
+                                        <li><strong>AI Generates:</strong> Personalized training plan</li>
+                                        <li><strong>Delivery:</strong> Web link sent to user within 5 minutes</li>
+                                        <li><strong>Link Format:</strong> https://myrise.co.in/plan/{unique-id}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flow-step">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <h4>Training Plan Import</h4>
+                                <p>User pastes web link to import their personalized plan</p>
+                                <div class="step-details">
+                                    <ul>
+                                        <li><strong>UI:</strong> Input field for pasting web link</li>
+                                        <li><strong>API Call:</strong> POST /api/training-plan/import with link</li>
+                                        <li><strong>Backend Processing:</strong>
+                                            <ul style="list-style: circle; margin-left: 1.5rem;">
+                                                <li>Fetch plan data from web link</li>
+                                                <li>Parse workout details (day, type, distance, intensity)</li>
+                                                <li>Structure into JSON format</li>
+                                                <li>Save to MongoDB training_plans collection</li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>Display:</strong> Show week-by-week plan in clean UI</li>
+                                        <li><strong>Note:</strong> AI plan is final, no manual editing</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flow-step">
+                            <div class="step-number">6</div>
+                            <div class="step-content">
+                                <h4>Permissions & Integrations Setup</h4>
+                                <p>Request necessary permissions for core features</p>
+                                <div class="step-details">
+                                    <ul>
+                                        <li><strong>Location Permission:</strong> For GPS tracking during runs
+                                            <ul style="list-style: circle; margin-left: 1.5rem;">
+                                                <li>iOS: "While Using the App" permission</li>
+                                                <li>Android: ACCESS_FINE_LOCATION</li>
+                                                <li>Show explanation if denied</li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>Notification Permission:</strong> For reminders and updates</li>
+                                        <li><strong>Google Calendar Sync:</strong>
+                                            <ul style="list-style: circle; margin-left: 1.5rem;">
+                                                <li>OAuth 2.0 authentication flow</li>
+                                                <li>Request calendar.events scope</li>
+                                                <li>One-tap sync of entire training plan</li>
+                                                <li>Create calendar events for each workout</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 2: Daily Use -->
+                <div class="flow-phase">
+                    <h3>Phase 2: Daily Use Cycle</h3>
+                    <div class="flow-steps">
+                        <div class="flow-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Pre-Run: Check Today's Workout</h4>
+                                <p>User opens app to see today's scheduled run</p>
+                                <div class="step-details">
+                                    <ul>
+                                        <li><strong>API Call:</strong> GET /api/training-plan</li>
+                                        <li><strong>Display:</strong> Today's workout prominently on dashboard</li>
+                                        <li><strong>Details Shown:</strong>
+                                            <ul style="list-style: circle; margin-left: 1.5rem;">
+                                                <li>Workout type (Easy, Tempo, Intervals, Long Run)</li>
+                                                <li>Target distance</li>
+                                                <li>Suggested pace range</li>
+                                                <li>Estimated duration</li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>Optional:</strong> View social feed or leaderboards</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flow-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Start Run & GPS Tracking</h4>
+                                <p>User taps "Start Run" button to begin tracking</p>
+                                <div class="step-details">
+                                    <ul>
+                                        <li><strong>Permission Check:</strong> Verify location permission granted</li>
+                                        <li><strong>GPS Initialization:</strong>
+                                            <ul style="list-style: circle; margin-left: 1.5rem;">
+                                                <li>Flutter Geolocator package</li>
+                                                <li>Request highest accuracy</li>
+                                                <li>Start location stream</li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>Real-Time Data Collection:</strong>
+                                            <ul style="list-style: circle; margin-left: 1.5rem;">
+                                                <li>Latitude & Longitude</li>
+                                                <li>Altitude (for elevation tracking)</li>
+                                                <li>Speed</li>
+                                                <li>Timestamp for each point</li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>UI Display:</strong>
+                                            <ul style="list-style: circle; margin-left: 1.5rem;">
+                                                <li>Real-time distance calculation</li>
+                                                <li>Current pace (min/km)</li>
+                                                <li>Duration timer</li>
+                                                <li>Route polyline on map</li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>Controls:</strong> Pause and Stop buttons</li>
+                                        <li><strong>Background Tracking:</strong> Continue tracking when app minimized</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flow-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>End Run & Save Activity</h4>
+                                <p>User stops tracking and saves the run</p>
+                                <div class="step-details">
+                                    <ul>
+                                        <li><strong>Stop Tracking:</strong> End GPS stream</li>
+                                        <li><strong>Data Processing:</strong>
+                                            <ul style="list-style: circle; margin-left: 1.5rem;">
+                                                <li>Remove GPS anomalies (drift when stationary)</li>
+                                                <li>Calculate total distance</li>
+                                                <li>Calculate average pace</li>
+                                                <li>Calculate elevation gain</li>
+                                                <li>Generate route polyline for map</li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>API Call:</strong> POST /api/activities
+                                            <ul style="list-style: circle; margin-left: 1.5rem;">
+                                                <li>Send all GPS data points</li>
+                                                <li>Send calculated metrics</li>
+                                                <li>Link to training plan workout</li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>Navigation:</strong> Move to feedback screen</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flow-step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>Post-Run Feedback</h4>
+                                <p>User provides feedback about the run</p>
+                                <div class="step-details">
+                                    <ul>
+                                        <li><strong>UI Elements:</strong>
+                                            <ul style="list-style: circle; margin-left: 1.5rem;">
+                                                <li>RPE Slider (1-10): Rate of Perceived Exertion</li>
+                                                <li>Energy Level Slider (1-10)</li>
+                                                <li>Pain Level Selector (None/Minor/Major)</li>
+                                                <li>Optional notes text field</li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>API Call:</strong> POST /api/feedback
+                                            <ul style="list-style: circle; margin-left: 1.5rem;">
+                                                <li>Link feedback to activity ID</li>
+                                                <li>Save to feedback collection</li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>Purpose:</strong> Data used for AI plan adaptation</li>
+                                        <li><strong>Navigation:</strong> Move to activity summary</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flow-step">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <h4>Activity Summary & Sharing</h4>
+                                <p>View run details and optionally share to social media</p>
+                                <div class="step-details">
+                                    <ul>
+                                        <li><strong>Display:</strong>
+                                            <ul style="list-style: circle; margin-left: 1.5rem;">
+                                                <li>Route map with polyline</li>
+                                                <li>Distance, duration, pace</li>
+                                                <li>Elevation gain</li>
+                                                <li>Splits (per km)</li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>Share Feature (Optional for MVP):</strong>
+                                            <ul style="list-style: circle; margin-left: 1.5rem;">
+                                                <li>Generate shareable image template</li>
+                                                <li>Include route map, stats, RISE branding</li>
+                                                <li>Use native share sheet (UIActivityViewController/ACTION_SEND)</li>
+                                                <li>User can share to Instagram Stories, Feed, or other apps</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 3: Weekly Adaptation -->
+                <div class="flow-phase">
+                    <h3>Phase 3: Weekly AI Adaptation Cycle</h3>
+                    <div class="flow-steps">
+                        <div class="flow-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Weekly Performance Analysis (Backend)</h4>
+                                <p>Automated Sunday job analyzes user's training week</p>
+                                <div class="step-details">
+                                    <ul>
+                                        <li><strong>Trigger:</strong> Cron job every Sunday evening</li>
+                                        <li><strong>Data Collected:</strong>
+                                            <ul style="list-style: circle; margin-left: 1.5rem;">
+                                                <li>Completed vs. planned workouts</li>
+                                                <li>Total distance and duration</li>
+                                                <li>Average RPE scores</li>
+                                                <li>Pain indicators</li>
+                                                <li>Consistency rate</li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>AI Analysis:</strong>
+                                            <ul style="list-style: circle; margin-left: 1.5rem;">
+                                                <li>Determine if user is adapting well</li>
+                                                <li>Check for signs of overtraining</li>
+                                                <li>Assess consistency and progression</li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>Plan Adaptation:</strong>
+                                            <ul style="list-style: circle; margin-left: 1.5rem;">
+                                                <li>Increase volume if progressing well</li>
+                                                <li>Add recovery day if high RPE/pain</li>
+                                                <li>Maintain current level if appropriate</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flow-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Update Training Plan</h4>
+                                <p>Backend updates next week's plan based on AI recommendations</p>
+                                <div class="step-details">
+                                    <ul>
+                                        <li><strong>API:</strong> PUT /api/training-plan (internal call)</li>
+                                        <li><strong>Update:</strong> Modify next week's workouts in MongoDB</li>
+                                        <li><strong>Calendar Sync:</strong> Update Google Calendar events</li>
+                                        <li><strong>Notification:</strong> Trigger push notification</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flow-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>User Notification & Review</h4>
+                                <p>User receives notification about updated plan</p>
+                                <div class="step-details">
+                
