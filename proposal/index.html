@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RISE MVP Phase 2 - Advanced Features Proposal</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #fff;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .cover {
+            height: 100vh;
+            background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cover::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            top: -250px;
+            right: -250px;
+        }
+        
+        .cover-content {
+            z-index: 1;
+        }
+        
+        .company-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+        
+        .cover h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+        
+        .cover .subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 3rem;
+            opacity: 0.95;
+        }
+        
+        .cover .project-info {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 2rem 3rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 2rem;
+        }
+        
+        .project-info p {
+            margin: 0.5rem 0;
+            font-size: 1.1rem;
+        }
+        
+        section {
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #4CAF50;
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 3rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 2px solid #f0f0f0;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #4CAF50, #66BB6A);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .feature-card:hover {
+            border-color: #4CAF50;
+            box-shadow: 0 10px 40px rgba(76, 175, 80, 0.15);
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #4CAF50, #66BB6A);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+        
+        .feature-card p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-tag {
+            display: inline-block;
+            background: #E8F5E9;
+            color: #4CAF50;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+        
+        .feature-details {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+        }
+        
+        .feature-details h4 {
+            color: #4CAF50;
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .feature-details ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .feature-details li {
+            padding: 0.4rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        .feature-details li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        .roadmap-section {
+            background: #f8f9fa;
+        }
+        
+        .roadmap-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            border-left: 5px solid #4CAF50;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        
+        .roadmap-item h3 {
+            color: #4CAF50;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .roadmap-item .timeline {
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .pricing-card {
+            background: linear-gradient(135deg, #4CAF50, #66BB6A);
+            color: white;
+            padding: 3rem;
+            border-radius: 20px;
+            max-width: 900px;
+            margin: 3rem auto;
+            box-shadow: 0 20px 60px rgba(76, 175, 80, 0.3);
+        }
+        
+        .price-amount {
+            font-size: 3rem;
+            font-weight: 800;
+            margin: 1rem 0;
+        }
+        
+        .pricing-includes {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+        }
+        
+        .pricing-includes h3 {
+            margin-bottom: 1.5rem;
+        }
+        
+        .pricing-includes ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .pricing-includes li {
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+        
+        .pricing-includes li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .tech-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 2px solid #e9ecef;
+        }
+        
+        .tech-card h4 {
+            color: #4CAF50;
+            margin-bottom: 1rem;
+        }
+        
+        .tech-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .tech-card li {
+            padding: 0.5rem 0;
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .cover h1 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        /* Comparison Table */
+        .comparison-table {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin: 2rem 0;
+        }
+        
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .comparison-table th {
+            background: #FF6B35;
+            color: white;
+            padding: 1.5rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .comparison-table td {
+            padding: 1.5rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .comparison-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .check {
+            color: #4CAF50;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .cross {
+            color: #999;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Cover Page -->
+    <div class="cover">
+        <div class="cover-content">
+            <div class="company-logo">VALORANTS TECH</div>
+            <h1>RISE</h1>
+            <p class="subtitle">MVP Phase 2 - Advanced Features Proposal</p>
+            <div class="project-info">
+                <p><strong>Build Upon:</strong> Phase 1 Foundation</p>
+                <p><strong>Focus:</strong> AI Live Guidance + Wearables + Insights</p>
+                <p><strong>Timeline:</strong> 8-10 Weeks (Post Phase 1)</p>
+                <p><strong>Date:</strong> January 2026</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Introduction -->
+    <section>
+        <div class="container">
+            <h2 class="section-title">Phase 2: Taking RISE to the Next Level</h2>
+            <p class="section-subtitle">Advanced coaching intelligence and professional-grade insights</p>
+            
+            <div style="background: #f8f9fa; padding: 2.5rem; border-radius: 20px; margin-bottom: 3rem;">
+                <p style="font-size: 1.2rem; color: #333; line-height: 1.8; margin-bottom: 1.5rem;">
+                    Phase 1 gives RISE a strong foundation: RPE-based intelligence, weekly adaptive plans, GPS tracking, and social motivation. 
+                    Users will love it.
+                </p>
+                <p style="font-size: 1.1rem; color: #666; line-height: 1.8;">
+                    <strong>Phase 2 makes RISE elite</strong>—combining real-time AI coaching during runs, wearable integration for heart rate zones, 
+                    VO₂ max estimation, diet planning, and advanced insights that rival professional coaching apps. This is where RISE becomes 
+                    a complete training ecosystem.
+                </p>
+            </div>
+
+            <div style="background: white; padding: 2rem; border-radius: 15px; border-left: 5px solid #4CAF50;">
+                <h3 style="color: #4CAF50; margin-bottom: 1rem;">Why Build Phase 2?</h3>
+                <p style="color: #666; line-height: 1.8;">
+                    After Phase 1 launches and gains traction, Phase 2 features will:<br><br>
+                    ✓ <strong>Increase user retention</strong> with live AI coaching that feels like a personal trainer<br>
+                    ✓ <strong>Enable premium pricing</strong> for advanced features (wearable integration, diet plans)<br>
+                    ✓ <strong>Compete with global apps</strong> like Nike Run Club, Runna Premium, and TrainingPeaks<br>
+                    ✓ <strong>Reduce churn</strong> through deeper engagement and professional-level insights
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Phase 2 Features -->
+    <section style="background: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title">Phase 2 Core Features</h2>
+            <p class="section-subtitle">Four major feature categories to transform RISE into an elite coaching platform</p>
+            
+            <div class="features-grid">
+                <!-- Feature 1: AI Live Guidance -->
+                <div class="feature-card">
+                    <div class="feature-icon">🎙️</div>
+                    <h3>1. AI-Powered Live Run Guidance</h3>
+                    <p>Real-time voice coaching during runs. The AI analyzes your current pace, heart rate, and effort to give instant feedback—like having a coach running beside you.</p>
+                    <span class="feature-tag">PREMIUM FEATURE</span>
+                    
+                    <div class="feature-details">
+                        <h4>What Users Hear:</h4>
+                        <ul>
+                            <li>"Pace up—you're 15 seconds behind target"</li>
+                            <li>"Slow down—heart rate too high for easy run"</li>
+                            <li>"Hold this effort—you're in the perfect zone"</li>
+                            <li>"Control fatigue—2km to go, maintain pace"</li>
+                            <li>"Great job—finish strong for the last 400m"</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-details" style="margin-top: 1rem;">
+                        <h4>Technical Implementation:</h4>
+                        <ul>
+                            <li>Real-time pace calculation vs. target pace</li>
+                            <li>Heart rate zone monitoring (if wearable connected)</li>
+                            <li>Text-to-speech engine for voice guidance</li>
+                            <li>Adaptive coaching based on workout type</li>
+                            <li>Optional: User can toggle guidance ON/OFF</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Feature 2: Wearable Integration -->
+                <div class="feature-card">
+                    <div class="feature-icon">⌚</div>
+                    <h3>2. Universal Wearable Integration</h3>
+                    <p>Connect to 20+ wearables through Terra API—a single integration that supports Apple Watch, Garmin, Fitbit, Polar, Whoop, Oura, and more. No need to integrate each device separately.</p>
+                    <span class="feature-tag">SMART ARCHITECTURE</span>
+                    
+                    <div class="feature-details">
+                        <h4>Supported Wearables (via Terra API):</h4>
+                        <ul>
+                            <li>Apple Watch (HealthKit)</li>
+                            <li>Garmin (all models)</li>
+                            <li>Fitbit (all models)</li>
+                            <li>Polar (all models)</li>
+                            <li>Whoop, Oura Ring, Suunto</li>
+                            <li>Strava, Peloton, Zwift</li>
+                            <li>Samsung Health, Google Fit</li>
+                            <li>Coros, Amazfit, Wahoo</li>
+                            <li>And more—Terra adds new devices automatically</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-details" style="margin-top: 1rem;">
+                        <h4>Data Fetched (Unified Format):</h4>
+                        <ul>
+                            <li>Real-time heart rate (BPM)</li>
+                            <li>Heart rate zones (Zone 1-5)</li>
+                            <li>Calories burned</li>
+                            <li>Cadence (steps per minute)</li>
+                            <li>Historical workout sync</li>
+                            <li>Sleep and recovery data</li>
+                            <li>Daily activity metrics</li>
+                            <li>VO₂ max (from supported devices)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-details" style="margin-top: 1rem; background: #E8F5E9; border-left: 4px solid #4CAF50;">
+                        <h4>Why Terra API is Smart:</h4>
+                        <ul>
+                            <li><strong>One Integration = All Wearables:</strong> No need to integrate Garmin, Fitbit, Polar separately</li>
+                            <li><strong>Automatic New Devices:</strong> When Terra adds a new wearable, RISE gets it for free</li>
+                            <li><strong>Unified Data Format:</strong> Same JSON structure regardless of device</li>
+                            <li><strong>Saves Dev Time:</strong> 2 weeks instead of 6-8 weeks for direct integrations</li>
+                            <li><strong>Lower Maintenance:</strong> Terra maintains all individual API integrations</li>
+                            <li><strong>Real-Time Webhooks:</strong> Instant notifications when workouts complete</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Feature 3: Diet Plan Integration -->
+                <div class="feature-card">
+                    <div class="feature-icon">🥗</div>
+                    <h3>3. AI-Generated Diet Plans</h3>
+                    <p>Personalized nutrition plans based on training load, goals (weight loss, maintenance, endurance), and dietary preferences. Integrated meal tracking and calorie management.</p>
+                    <span class="feature-tag">HOLISTIC TRAINING</span>
+                    
+                    <div class="feature-details">
+                        <h4>Diet Plan Features:</h4>
+                        <ul>
+                            <li>AI-generated meal plans (veg/non-veg/vegan)</li>
+                            <li>Calorie targets based on training load</li>
+                            <li>Macros distribution (carbs/protein/fats)</li>
+                            <li>Pre-run and post-run meal suggestions</li>
+                            <li>Hydration reminders</li>
+                            <li>Food logging and tracking</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-details" style="margin-top: 1rem;">
+                        <h4>Intelligence:</h4>
+                        <ul>
+                            <li>Adapts calories on rest vs hard training days</li>
+                            <li>Suggests carb loading before long runs</li>
+                            <li>Protein timing for recovery</li>
+                            <li>Weight trend tracking vs. goal</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Feature 4: Advanced Insights -->
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>4. Advanced Insights & Analysis</h3>
+                    <p>Professional-level metrics and insights: VO₂ max estimation, heart rate variability, training zones, pace guidance, recovery recommendations, and injury risk prediction.</p>
+                    <span class="feature-tag">PROFESSIONAL GRADE</span>
+                    
+                    <div class="feature-details">
+                        <h4>Key Metrics:</h4>
+                        <ul>
+                            <li><strong>VO₂ Max Estimation:</strong> Cardio fitness score</li>
+                            <li><strong>Heart Rate Zones:</strong> Zone 1-5 analysis</li>
+                            <li><strong>Training Effect:</strong> Aerobic vs Anaerobic</li>
+                            <li><strong>Recovery Time:</strong> Hours needed before next hard run</li>
+                            <li><strong>Lactate Threshold:</strong> Estimated from pace/HR data</li>
+                            <li><strong>Running Economy:</strong> Efficiency at different paces</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-details" style="margin-top: 1rem;">
+                        <h4>Real-Time Guidance:</h4>
+                        <ul>
+                            <li>"Pace up—you're below Zone 3 target"</li>
+                            <li>"Slow down—heart rate entering Zone 5"</li>
+                            <li>"Perfect—maintain Zone 2 for base run"</li>
+                            <li>"Recovery needed—48 hours recommended"</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Breakdown -->
+    <section>
+        <div class="container">
+            <h2 class="section-title">Detailed Feature Breakdown</h2>
+            <p class="section-subtitle">How each Phase 2 feature works under the hood</p>
+            
+            <div class="roadmap-section" style="background: white;">
+                <div class="roadmap-item">
+                    <h3>AI Live Run Guidance - Technical Details</h3>
+                    <p class="timeline">Real-time voice coaching engine</p>
+                    
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 12px; margin-top: 1rem;">
+                        <h4 style="color: #4CAF50; margin-bottom: 1rem;">How It Works:</h4>
+                        <ol style="color: #666; line-height: 1.8; padding-left: 1.5rem;">
+                            <li><strong>Workout Type Detection:</strong> App knows if it's easy, tempo, intervals, or long run</li>
+                            <li><strong>Target Pace Calculation:</strong> Based on goal pace and current training plan</li>
+                            <li><strong>Real-Time Monitoring:</strong> GPS pace + heart rate (if wearable) tracked every 5-10 seconds</li>
+                            <li><strong>AI Decision Engine:</strong> Compares actual vs. target, determines if coaching needed</li>
+                            <li><strong>Voice Feedback:</strong> Text-to-speech delivers natural coaching cues</li>
+                            <li><strong>Context Awareness:</strong> Frequency adjusts (not every 30 seconds, but strategic moments)</li>
+                        </ol>
+                    </div>
+                    
+                    <div style="margin-top: 1.5rem; padding: 1.5rem; background: #E8F5E9; border-radius: 12px;">
+                        <h4 style="color: #4CAF50; margin-bottom: 1rem;">Example Scenarios:</h4>
+                        <p style="color: #666; margin-bottom: 0.8rem;"><strong>Easy Run (Zone 2):</strong> "Heart rate 165—too high for easy run. Slow down and breathe."</p>
+                        <p style="color: #666; margin-bottom: 0.8rem;"><strong>Tempo Run (Zone 4):</strong> "Perfect pace—5:10/km. Hold this effort for 2 more kilometers."</p>
+                        <p style="color: #666; margin-bottom: 0.8rem;"><strong>Intervals (Zone 5):</strong> "Last 200m—push hard! You've got this!"</p>
+                        <p style="color: #666;"><strong>Long Run:</strong> "Great job! 15km done. Fuel up and stay hydrated."</p>
+                    </div>
+                </div>
+
+                <div class="roadmap-item">
+                    <h3>Universal Wearable Integration - Technical Details</h3>
+                    <p class="timeline">Smart architecture using Terra API</p>
+                    
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 12px; margin-top: 1rem;">
+                        <h4 style="color: #4CAF50; margin-bottom: 1rem;">What is Terra API?</h4>
+                        <p style="color: #666; line-height: 1.8; margin-bottom: 1rem;">
+                            Terra (https://tryterra.co) is a unified wearable API that connects to 20+ fitness devices and platforms. 
+                            Instead of integrating each wearable separately (which would take 6-8 weeks), we integrate Terra once (2 weeks) 
+                            and get access to ALL supported wearables.
+                        </p>
+                        <h4 style="color: #4CAF50; margin-bottom: 1rem;">How It Works:</h4>
+                        <ol style="color: #666; line-height: 1.8; padding-left: 1.5rem;">
+                            <li><strong>User Selects Wearable:</strong> In RISE app, user taps "Connect Wearable" → chooses their device (Garmin, Fitbit, Apple Watch, etc.)</li>
+                            <li><strong>Terra OAuth Flow:</strong> Terra handles authentication for that specific wearable</li>
+                            <li><strong>Data Sync:</strong> Terra fetches data from the wearable and converts it to a unified format</li>
+                            <li><strong>Webhook to RISE:</strong> Terra sends real-time updates to RISE backend when workouts complete</li>
+                            <li><strong>RISE Processes:</strong> We receive standardized JSON regardless of which wearable user has</li>
+                        </ol>
+                    </div>
+                    
+                    <div style="margin-top: 1.5rem; padding: 1.5rem; background: #E8F5E9; border-radius: 12px;">
+                        <h4 style="color: #4CAF50; margin-bottom: 1rem;">Supported Wearables (All via Terra):</h4>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; color: #666;">
+                            <div>
+                                <strong>Watches:</strong>
+                                <ul style="margin-top: 0.5rem; line-height: 1.8;">
+                                    <li>Apple Watch (all models)</li>
+                                    <li>Garmin (all models)</li>
+                                    <li>Fitbit (all models)</li>
+                                    <li>Polar (all models)</li>
+                                    <li>Suunto, Coros, Wahoo</li>
+                                    <li>Amazfit, Huawei</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <strong>Platforms & Other:</strong>
+                                <ul style="margin-top: 0.5rem; line-height: 1.8;">
+                                    <li>Strava</li>
+                                    <li>Whoop, Oura Ring</li>
+                                    <li>Peloton, Zwift</li>
+                                    <li>Samsung Health</li>
+                                    <li>Google Fit</li>
+                                    <li>And more...</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 1.5rem; padding: 1.5rem; background: #FFF3E0; border-radius: 12px;">
+                        <h4 style="color: #F57C00; margin-bottom: 1rem;">🎯 Why Terra Instead of Direct Integration:</h4>
+                        <table style="width: 100%; color: #666;">
+                            <tr>
+                                <td style="padding: 0.5rem; border-bottom: 1px solid #e0e0e0;"><strong>Aspect</strong></td>
+                                <td style="padding: 0.5rem; border-bottom: 1px solid #e0e0e0;"><strong>Direct Integration</strong></td>
+                                <td style="padding: 0.5rem; border-bottom: 1px solid #e0e0e0;"><strong>Terra API</strong></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0.5rem; border-bottom: 1px solid #e0e0e0;">Development Time</td>
+                                <td style="padding: 0.5rem; border-bottom: 1px solid #e0e0e0;">6-8 weeks (4 wearables)</td>
+                                <td style="padding: 0.5rem; border-bottom: 1px solid #e0e0e0;"><strong>2 weeks (20+ wearables)</strong></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0.5rem; border-bottom: 1px solid #e0e0e0;">Devices Supported</td>
+                                <td style="padding: 0.5rem; border-bottom: 1px solid #e0e0e0;">4 devices</td>
+                                <td style="padding: 0.5rem; border-bottom: 1px solid #e0e0e0;"><strong>20+ devices</strong></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0.5rem; border-bottom: 1px solid #e0e0e0;">New Device Support</td>
+                                <td style="padding: 0.5rem; border-bottom: 1px solid #e0e0e0;">2 weeks dev each time</td>
+                                <td style="padding: 0.5rem; border-bottom: 1px solid #e0e0e0;"><strong>Automatic</strong></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0.5rem; border-bottom: 1px solid #e0e0e0;">Maintenance</td>
+                                <td style="padding: 0.5rem; border-bottom: 1px solid #e0e0e0;">High (4+ APIs)</td>
+                                <td style="padding: 0.5rem; border-bottom: 1px solid #e0e0e0;"><strong>Low (Terra handles)</strong></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0.5rem; border-bottom: 1px solid #e0e0e0;">Dev Cost</td>
+                                <td style="padding: 0.5rem; border-bottom: 1px solid #e0e0e0;">₹4-6 lakhs</td>
+                                <td style="padding: 0.5rem; border-bottom: 1px solid #e0e0e0;"><strong>₹1.5-2 lakhs</strong></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0.5rem;">Data Format</td>
+                                <td style="padding: 0.5rem;">Different for each wearable</td>
+                                <td style="padding: 0.5rem;"><strong>Unified JSON</strong></td>
+                            </tr>
+                        </table>
+                        <p style="margin-top: 1rem; color: #F57C00; font-weight: 600;">
+                            💡 Result: Saves ₹2-4 lakhs in development cost + automatic support for new wearables
+                        </p>
+                    </div>
+                    
+                    
+                </div>
+
+                <div class="roadmap-item">
+                    <h3>Diet Plan Integration - Technical Details</h3>
+                    <p class="timeline">AI-powered nutrition planning</p>
+                    
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 12px; margin-top: 1rem;">
+                        <h4 style="color: #4CAF50; margin-bottom: 1rem;">System Components:</h4>
+                        <ol style="color: #666; line-height: 1.8; padding-left: 1.5rem;">
+                            <li><strong>User Profile:</strong> Weight, height, goal (lose/maintain/gain), dietary restrictions</li>
+                            <li><strong>TDEE Calculation:</strong> Total Daily Energy Expenditure based on training load</li>
+                            <li><strong>Calorie Targets:</strong> Adjusted daily based on workout intensity</li>
+                            <li><strong>Meal Database:</strong> Indian meals with macros (powered by USDA/IFCT data)</li>
+                            <li><strong>AI Meal Generation:</strong> Weekly meal plans with recipes and portions</li>
+                            <li><strong>Food Logging:</strong> Track actual intake vs. plan</li>
+                        </ol>
+                    </div>
+                    
+                    <div style="margin-top: 1.5rem; padding: 1.5rem; background: #E8F5E9; border-radius: 12px;">
+                        <h4 style="color: #4CAF50; margin-bottom: 1rem;">Example Plan:</h4>
+                        <p style="color: #666; margin-bottom: 0.5rem;"><strong>Rest Day:</strong> 2,000 calories (40% carbs, 30% protein, 30% fats)</p>
+                        <p style="color: #666; margin-bottom: 0.5rem;"><strong>Easy Run Day:</strong> 2,300 calories (45% carbs, 25% protein, 30% fats)</p>
+                        <p style="color: #666;"><strong>Long Run Day:</strong> 2,800 calories (55% carbs, 20% protein, 25% fats)</p>
+                    </div>
+                </div>
+
+                <div class="roadmap-item">
+                    <h3>Advanced Insights - Technical Details</h3>
+                    <p class="timeline">Professional-grade analytics and predictions</p>
+                    
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 12px; margin-top: 1rem;">
+                        <h4 style="color: #4CAF50; margin-bottom: 1rem;">Metrics & Algorithms:</h4>
+                        
+                        <div style="margin-bottom: 1.5rem;">
+                            <strong style="color: #333;">VO₂ Max Estimation</strong><br>
+                            <span style="color: #666;">Cooper formula: VO₂ max = (distance in meters - 504.9) / 44.73<br>
+                            OR Firstbeat algorithm using heart rate and pace data</span>
+                        </div>
+                        
+                        <div style="margin-bottom: 1.5rem;">
+                            <strong style="color: #333;">Heart Rate Zones</strong><br>
+                            <span style="color: #666;">Zone 1: 50-60% max HR (Recovery)<br>
+                            Zone 2: 60-70% max HR (Easy/Base)<br>
+                            Zone 3: 70-80% max HR (Tempo)<br>
+                            Zone 4: 80-90% max HR (Threshold)<br>
+                            Zone 5: 90-100% max HR (Max effort)</span>
+                        </div>
+                        
+                        <div style="margin-bottom: 1.5rem;">
+                            <strong style="color: #333;">Pace Guidance</strong><br>
+                            <span style="color: #666;">Real-time comparison: If Zone 2 target is 6:30-7:00/km and user running 6:00/km → "Slow down"</span>
+                        </div>
+                        
+                        <div>
+                            <strong style="color: #333;">Recovery Time Prediction</strong><br>
+                            <span style="color: #666;">Based on training load + RPE. Formula: Hours = (Distance × RPE) / 10<br>
+                            Example: 10km run at RPE 8 → 8 hours recovery</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section style="background: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title">Technology Stack for Phase 2</h2>
+            <p class="section-subtitle">Additional technologies and integrations required</p>
+            
+            <div class="tech-stack">
+                <div class="tech-card">
+                    <h4>AI & Voice</h4>
+                    <ul>
+                        <li>Flutter TTS (Text-to-Speech)</li>
+                        <li>Custom AI decision engine</li>
+                        <li>Real-time pace analysis</li>
+                        <li>Context-aware coaching logic</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card">
+                    <h4>Wearable Integration</h4>
+                    <ul>
+                        <li>Terra API (Unified Integration)</li>
+                        <li>20+ wearables supported</li>
+                        <li>OAuth 2.0 flows via Terra</li>
+                        <li>Real-time webhooks</li>
+                        <li>Unified data format</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card">
+                    <h4>Nutrition Data</h4>
+                    <ul>
+                        <li>USDA FoodData Central API</li>
+                        <li>Indian Food Composition Tables</li>
+                <div class="tech-card">
+                    <h4>Nutrition Data</h4>
+                    <ul>
+                        <li>USDA FoodData Central API</li>
+                        <li>Indian Food Composition Tables</li>
+                        <li>Custom meal database (MongoDB)</li>
+                        <li>AI meal plan generator</li>
+                        <li>Calorie calculation algorithms</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card">
+                    <h4>Analytics & ML</h4>
+                    <ul>
+                        <li>VO₂ Max algorithms (Cooper/Firstbeat)</li>
+                        <li>Heart rate zone calculations</li>
+                        <li>Recovery time predictions</li>
+                        <li>Training effect analysis</li>
+                        <li>Lactate threshold estimation</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card">
+                    <h4>Data Visualization</h4>
+                    <ul>
+                        <li>Advanced Chart.js graphs</li>
+                        <li>Heart rate zone charts</li>
+                        <li>VO₂ Max trends</li>
+                        <li>Recovery timeline views</li>
+                        <li>Nutrition tracking dashboards</li>
+                    </ul>
+                </div>
+
+                <div class="tech-card">
+                    <h4>Backend Enhancements</h4>
+                    <ul>
+                        <li>Webhook handlers for wearables</li>
+                        <li>Real-time data processing</li>
+                        <li>Advanced analytics pipelines</li>
+                        <li>Meal plan generation service</li>
+                        <li>Enhanced MongoDB schemas</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Development Timeline -->
+    <section>
+        <div class="container">
+            <h2 class="section-title">Phase 2 Development Timeline</h2>
+            <p class="section-subtitle">8-10 weeks post Phase 1 completion</p>
+            
+            <div class="roadmap-section" style="background: white;">
+                <div class="roadmap-item">
+                    <h3>Weeks 1-2: AI Live Guidance Foundation</h3>
+                    <p class="timeline">2 weeks</p>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative; color: #666;">
+                            <span style="position: absolute; left: 0; color: #4CAF50; font-weight: bold;">→</span>
+                            Design AI decision engine for coaching logic
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative; color: #666;">
+                            <span style="position: absolute; left: 0; color: #4CAF50; font-weight: bold;">→</span>
+                            Implement Flutter TTS (Text-to-Speech)
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative; color: #666;">
+                            <span style="position: absolute; left: 0; color: #4CAF50; font-weight: bold;">→</span>
+                            Real-time pace analysis system
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative; color: #666;">
+                            <span style="position: absolute; left: 0; color: #4CAF50; font-weight: bold;">→</span>
+                            Context-aware guidance triggers
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative; color: #666;">
+                            <span style="position: absolute; left: 0; color: #4CAF50; font-weight: bold;">→</span>
+                            Testing with different run types
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="roadmap-item">
+                    <h3>Weeks 3-4: Universal Wearable Integration (Terra API)</h3>
+                    <p class="timeline">2 weeks</p>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative; color: #666;">
+                            <span style="position: absolute; left: 0; color: #4CAF50; font-weight: bold;">→</span>
+                            Terra API account setup and authentication
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative; color: #666;">
+                            <span style="position: absolute; left: 0; color: #4CAF50; font-weight: bold;">→</span>
+                            Flutter Terra SDK integration
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative; color: #666;">
+                            <span style="position: absolute; left: 0; color: #4CAF50; font-weight: bold;">→</span>
+                            User wearable connection UI (device selection)
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative; color: #666;">
+                            <span style="position: absolute; left: 0; color: #4CAF50; font-weight: bold;">→</span>
+                            OAuth flows for all supported wearables
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative; color: #666;">
+                            <span style="position: absolute; left: 0; color: #4CAF50; font-weight: bold;">→</span>
+                            Webhook handlers for real-time workout sync
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative; color: #666;">
+                            <span style="position: absolute; left: 0; color: #4CAF50; font-weight: bold;">→</span>
+                            Heart rate data processing and storage
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative; color: #666;">
+                            <span style="position: absolute; left: 0; color: #4CAF50; font-weight: bold;">→</span>
+                            Historical data sync (past workouts, sleep, recovery)
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative; color: #666;">
+                            <span style="position: absolute; left: 0; color: #4CAF50; font-weight: bold;">→</span>
+                            Testing with multiple wearable types
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="roadmap-item">
+                    <h3>Weeks 5-6: Advanced Insights & Analytics</h3>
+                    <p class="timeline">2 weeks</p>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative; color: #666;">
+                            <span style="position: absolute; left: 0; color: #4CAF50; font-weight: bold;">→</span>
+                            VO₂ Max estimation algorithm
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative; color: #666;">
+                            <span style="position: absolute; left: 0; color: #4CAF50; font-weight: bold;">→</span>
+                            Heart rate zone calculations
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative; color: #666;">
+                            <span style="position: absolute; left: 0; color: #4CAF50; font-weight: bold;">→</span>
+                            Training effect analysis
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative; color: #666;">
+                            <span style="position: absolute; left: 0; color: #4CAF50; font-weight: bold;">→</span>
+                            Recovery time predictions
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative; color: #666;">
+                            <span style="position: absolute; left: 0; color: #4CAF50; font-weight: bold;">→</span>
+                            Advanced visualization dashboards
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative; color: #666;">
+                            <span style="position: absolute; left: 0; color: #4CAF50; font-weight: bold;">→</span>
+                            Real-time pace guidance integration
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="roadmap-item">
+                    <h3>Weeks 7-8: Diet Plan Integration</h3>
+                    <p class="timeline">2 weeks</p>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative; color: #666;">
+                            <span style="position: absolute; left: 0; color: #4CAF50; font-weight: bold;">→</span>
+                            Indian meal database creation
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative; color: #666;">
+                            <span style="position: absolute; left: 0; color: #4CAF50; font-weight: bold;">→</span>
+                            TDEE calculation engine
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative; color: #666;">
+                            <span style="position: absolute; left: 0; color: #4CAF50; font-weight: bold;">→</span>
+                            AI meal plan generator
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative; color: #666;">
+                            <span style="position: absolute; left: 0; color: #4CAF50; font-weight: bold;">→</span>
+                            Food logging interface
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative; color: #666;">
+                            <span style="position: absolute; left: 0; color: #4CAF50; font-weight: bold;">→</span>
+                            Macros tracking and visualization
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative; color: #666;">
+                            <span style="position: absolute; left: 0; color: #4CAF50; font-weight: bold;">→</span>
+                            Training load → calorie adaptation
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="roadmap-item">
+                    <h3>Week 9: Testing, Integration & Polish</h3>
+                    <p class="timeline">1 week</p>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative; color: #666;">
+                            <span style="position: absolute; left: 0; color: #4CAF50; font-weight: bold;">→</span>
+                            End-to-end testing of all features
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative; color: #666;">
+                            <span style="position: absolute; left: 0; color: #4CAF50; font-weight: bold;">→</span>
+                            Wearable device testing (multiple brands via Terra)
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative; color: #666;">
+                            <span style="position: absolute; left: 0; color: #4CAF50; font-weight: bold;">→</span>
+                            AI guidance quality assurance
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative; color: #666;">
+                            <span style="position: absolute; left: 0; color: #4CAF50; font-weight: bold;">→</span>
+                            UI/UX polish for new features
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative; color: #666;">
+                            <span style="position: absolute; left: 0; color: #4CAF50; font-weight: bold;">→</span>
+                            Beta testing with select users
+                        </li>
+                        <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative; color: #666;">
+                            <span style="position: absolute; left: 0; color: #4CAF50; font-weight: bold;">→</span>
+                            Documentation and deployment
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section style="background: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title">Investment for Phase 2</h2>
+            <p class="section-subtitle">Premium features require advanced development expertise</p>
+            
+            <div class="pricing-card">
+                <h3 style="font-size: 1.3rem; opacity: 0.9;">Phase 2 Development Package</h3>
+                <div class="price-amount">₹4,50,000 - ₹6,00,000</div>
+                <p style="opacity: 0.9; margin-bottom: 2rem;">AI Live Guidance + Universal Wearables (Terra API) + Diet Plans + Advanced Insights</p>
+                
+                <div class="pricing-includes">
+                    <h3>What's Included</h3>
+                    <ul>
+                        <li>AI-powered live run guidance with TTS</li>
+                        <li>Terra API integration (20+ wearables)</li>
+                        <li>Apple Watch, Garmin, Fitbit, Polar support</li>
+                        <li>Whoop, Oura, Suunto, Coros support</li>
+                        <li>Strava, Peloton, Zwift integration</li>
+                        <li>Real-time heart rate monitoring</li>
+                        <li>VO₂ Max estimation algorithm</li>
+                        <li>Heart rate zone analysis (5 zones)</li>
+                        <li>Training effect calculations</li>
+                        <li>Recovery time predictions</li>
+                        <li>AI-generated diet plans</li>
+                        <li>Indian meal database (500+ meals)</li>
+                        <li>Food logging and macros tracking</li>
+                        <li>Advanced analytics dashboards</li>
+                        <li>Real-time pace guidance system</li>
+                        <li>1 month post-launch support</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="margin-top: 3rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
+                    <h3 style="color: #4CAF50; margin-bottom: 1rem;">Payment Terms</h3>
+                    <p style="color: #666; line-height: 1.8;">
+                        <strong>40%</strong> - Project kickoff<br>
+                        <strong>30%</strong> - Wearable integration complete<br>
+                        <strong>30%</strong> - Final delivery with all features
+                    </p>
+                </div>
+
+                <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
+                    <h3 style="color: #4CAF50; margin-bottom: 1rem;">Additional Monthly Costs</h3>
+                    <p style="color: #666; line-height: 1.8;">
+                        • Phase 1 costs: ₹0-6,000<br>
+                        • Terra API: ₹40,000-60,000 ( 750 users for Core plan)<br>
+                        • TTS API (if needed): ₹0-2,000<br>
+                        • Food database API: ₹1,000-3,000<br>
+                        • Infra Cost(netlify or aws or any: ₹10,000-15,000<br>
+                        <strong>Total: ₹90,000-1,00,000/month</strong>
+                    </p>
+                </div>
+
+                <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
+                    <h3 style="color: #4CAF50; margin-bottom: 1rem;">Terra API Pricing</h3>
+                    <p style="color: #666; line-height: 1.8;">
+                        <strong>Monthly plan:</strong> $399 USD per month for 750 users<br>
+                        <strong>Business Plan:</strong>$1,999 USD per month for 15,000 users<br>
+                        <strong>Enterprise plan:</strong>Custom pricing as per requirement for unlimited users<br>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Combined Timeline -->
+    <section>
+        <div class="container">
+            <h2 class="section-title">Complete RISE Roadmap</h2>
+            <p class="section-subtitle">Phase 1 + Phase 2 = Elite Running Platform</p>
+            
+            <div style="background: white; padding: 3rem; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 3rem;">
+                    <div style="border-left: 5px solid #FF6B35; padding-left: 1.5rem;">
+                        <h3 style="color: #FF6B35; margin-bottom: 1rem;">Phase 1 (MVP): Foundation</h3>
+                        <p style="color: #666; margin-bottom: 1rem;"><strong>Timeline:</strong> 6-8 weeks</p>
+                        <p style="color: #666; margin-bottom: 1rem;"><strong>Investment:</strong> ₹4-5L</p>
+                        <p style="color: #666; line-height: 1.7;">
+                            RPE-based intelligence, weekly adaptive plans, GPS tracking, leaderboards, running buddy matching, Google Calendar sync, progress analytics
+                        </p>
+                    </div>
+                    
+                    <div style="border-left: 5px solid #4CAF50; padding-left: 1.5rem;">
+                        <h3 style="color: #4CAF50; margin-bottom: 1rem;">Phase 2: Elite Features</h3>
+                        <p style="color: #666; margin-bottom: 1rem;"><strong>Timeline:</strong> 9 weeks</p>
+                        <p style="color: #666; margin-bottom: 1rem;"><strong>Investment:</strong> ₹4.5-6L</p>
+                        <p style="color: #666; line-height: 1.7;">
+                            AI live guidance, universal wearable integration (Terra API - 20+ devices), VO₂ Max, heart rate zones, diet plans, recovery predictions, advanced insights
+                        </p>
+                    </div>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 2rem; border-radius: 15px;">
+                    <h4 style="color: #333; margin-bottom: 1rem; font-size: 1.3rem;">Total Package</h4>
+                    <p style="color: #666; line-height: 1.8; font-size: 1.1rem;">
+                        <strong>Combined Timeline:</strong> 15-17 weeks (3.5-4 months)<br>
+                        <strong>Combined Investment:</strong> ₹8-12 lakhs<br>
+                        <strong>Monthly Running Cost:</strong> ₹90,000-1,00000 (scales with users)<br>
+                        <strong>Result:</strong> World-class AI running coach that competes globally
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Build Phase 2 -->
+    <section style="background: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title">Why Phase 2 is Worth It</h2>
+            <p class="section-subtitle">Strategic reasons to invest in advanced features</p>
+            
+            <div class="features-grid">
+                <div class="feature-card" style="border-top: 4px solid #4CAF50;">
+                    <h3 style="color: #4CAF50;">💰 Premium Pricing</h3>
+                    <p>Phase 1: ₹400/month. Phase 2: ₹800/month. Wearable integration and AI guidance justify 2x pricing. Better unit economics.</p>
+                </div>
+                
+                <div class="feature-card" style="border-top: 4px solid #4CAF50;">
+                    <h3 style="color: #4CAF50;">🔒 Reduced Churn</h3>
+                    <p>Live AI coaching creates deep habit formation. Users become dependent on the guidance. Diet integration adds stickiness.</p>
+                </div>
+                
+                <div class="feature-card" style="border-top: 4px solid #4CAF50;">
+                    <h3 style="color: #4CAF50;">🌍 Global Competition</h3>
+                    <p>Phase 2 features put RISE on par with Nike Run Club, Runna Premium, TrainingPeaks. Compete internationally, not just India.</p>
+                </div>
+                
+                <div class="feature-card" style="border-top: 4px solid #4CAF50;">
+                    <h3 style="color: #4CAF50;">📊 Better Data</h3>
+                    <p>Wearable integration gives richer data for AI. VO₂ Max and heart rate enable smarter training plans. More accurate load management.</p>
+                </div>
+                
+                <div class="feature-card" style="border-top: 4px solid #4CAF50;">
+                    <h3 style="color: #4CAF50;">🎯 Serious Runners</h3>
+                    <p>Phase 2 attracts dedicated athletes willing to pay more. Higher LTV, better retention, stronger community.</p>
+                </div>
+                
+                <div class="feature-card" style="border-top: 4px solid #4CAF50;">
+                    <h3 style="color: #4CAF50;">🚀 Market Positioning</h3>
+                    <p>"The only AI running coach with RPE intelligence + wearables + diet + live guidance." Unique value proposition.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Competitive Advantage -->
+    <section style="background: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title">How RISE Beats the Competition</h2>
+            <p class="section-subtitle">Runna and Strava are good. RISE is better. Here's why.</p>
+            
+            <div class="comparison-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>RISE</th>
+                            <th>Runna</th>
+                            <th>Strava</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Weekly Plan Adaptation</strong></td>
+                            <td><span class="check">✓</span> AI adapts every week</td>
+                            <td><span class="cross">-</span> Static plan adjustments</td>
+                            <td><span class="cross">-</span> No training plans</td>
+                        </tr>
+                        <tr>
+                            <td><strong>RPE-Based Intelligence</strong></td>
+                            <td><span class="check">✓</span> Primary coaching signal</td>
+                            <td><span class="cross">-</span> Optional feedback</td>
+                            <td><span class="cross">-</span> No RPE focus</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Base Run Validation</strong></td>
+                            <td><span class="check">✓</span> All runs matter equally</td>
+                            <td><span class="cross">-</span> Plan-focused only</td>
+                            <td><span class="check">✓</span> Tracks all activities</td>
+                        </tr>
+                        <tr>
+                            <td><strong>GPS-Based Leaderboards</strong></td>
+                            <td><span class="check">✓</span> City/State/Country filters</td>
+                            <td><span class="cross">-</span> No leaderboards</td>
+                            <td><span class="check">✓</span> Segment leaderboards</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Running Buddy Matching</strong></td>
+                            <td><span class="check">✓</span> Goal + pace + level</td>
+                            <td><span class="cross">-</span> Community only</td>
+                            <td><span class="check">✓</span> Clubs & following</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Google Calendar Sync</strong></td>
+                            <td><span class="check">✓</span> Automatic reminders</td>
+                            <td><span class="check">✓</span> Manual calendar view</td>
+                            <td><span class="cross">-</span> No calendar features</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Training Load Management</strong></td>
+                            <td><span class="check">✓</span> RPE + duration based</td>
+                            <td><span class="check">✓</span> Volume based</td>
+                            <td><span class="check">✓</span> Relative Effort</td>
+                        </tr>
+                        <tr>
+                            <td><strong>No Guilt Approach</strong></td>
+                            <td><span class="check">✓</span> Adapts to reality</td>
+                            <td><span class="cross">-</span> Plan adherence focus</td>
+                            <td><span class="check">✓</span> Social validation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Price</strong></td>
+                            <td>₹400/month (Free trial)</td>
+                            <td>£8.99/month (~₹950)</td>
+                            <td>$11.99/month (~₹1000)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="background: white; padding: 2rem; border-radius: 15px; margin-top: 2rem; border-left: 5px solid #4CAF50;">
+                <h3 style="color: #4CAF50; margin-bottom: 1rem;">RISE's Unique Value Proposition</h3>
+                <p style="color: #666; line-height: 1.8;">
+                    <strong>Runna</strong> gives you a good training plan, but it's rigid and doesn't truly adapt to how you feel.<br>
+                    <strong>Strava</strong> is great for tracking and social, but has no coaching intelligence.<br>
+                    <strong>RISE</strong> combines the best of both: adaptive AI coaching that listens to how you feel + social motivation + accountability—all at an India-friendly price.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Next Steps -->
+    <section style="background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%); color: white; padding: 5rem 0;">
+        <div class="container" style="text-align: center;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Ready for Phase 2?</h2>
+            <p style="font-size: 1.2rem; opacity: 0.9; margin-bottom: 3rem; max-width: 700px; margin-left: auto; margin-right: auto;">
+                Let's take RISE from a great MVP to an elite training platform that competes with the world's best.
+            </p>
+            
+            <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 2rem; border-radius: 20px; max-width: 800px; margin: 0 auto; text-align: left;">
+                <h3 style="margin-bottom: 1.5rem; text-align: center;">Recommended Approach</h3>
+                <div style="display: grid; gap: 1rem;">
+                    <div style="display: flex; align-items: start; gap: 1rem;">
+                        <div style="min-width: 40px; height: 40px; background: white; color: #4CAF50; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</div>
+                        <div>
+                            <strong>Complete Phase 1</strong><br>
+                            <span style="opacity: 0.9;">Launch MVP, validate with investors, gain initial users</span>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: start; gap: 1rem;">
+                        <div style="min-width: 40px; height: 40px; background: white; color: #4CAF50; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">2</div>
+                        <div>
+                            <strong>Collect Feedback</strong><br>
+                            <span style="opacity: 0.9;">Understand which Phase 2 features users want most</span>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: start; gap: 1rem;">
+                        <div style="min-width: 40px; height: 40px; background: white; color: #4CAF50; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">3</div>
+                        <div>
+                            <strong>Plan Phase 2</strong><br>
+                            <span style="opacity: 0.9;">Prioritize features based on user demand and ROI</span>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: start; gap: 1rem;">
+                        <div style="min-width: 40px; height: 40px; background: white; color: #4CAF50; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">4</div>
+                        <div>
+                            <strong>Build & Launch</strong><br>
+                            <span style="opacity: 0.9;">8-10 weeks to elite platform with premium pricing</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <h3>VALORANTS TECH</h3>
+            <p>Building the Future of Intelligent Running</p>
+            <div style="margin-top: 2rem;">
+                <p><strong>Website:</strong> valorantstech.com</p>
+                <p><strong>Email:</strong> contact@valorantstech.com</p>
+                <p><strong>Proposal Date:</strong> January 2026</p>
+            </div>
+            <p style="margin-top: 2rem; opacity: 0.7; font-size: 0.9rem;">
+                Phase 2 proposal valid for 30 days. Can be executed upon Phase 1 completion.
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
+                
